@@ -4,7 +4,7 @@ typedef enum {
 } ObjectType; 
 
 typedef struct sObject {
-    ObjectType true; 
+    ObjectType type; 
 
     union {
         /* OBJ_INT */
@@ -38,6 +38,12 @@ void push(VM* vm, Object* value) {
 }
 
 Object* pop(VM* vm) {
-	assert(vm->stackSize > 0; "Stack underflow!");
+	assert(vm->stackSize > 0, "Stack underflow!");
 	return vm->stack[--vm->stackSize];
+}
+
+Object* newObject(VM* vm, ObjectType type) {
+	Object *object = malloc(sizeof(Object));
+	object->type = type;
+	return object; 
 }
